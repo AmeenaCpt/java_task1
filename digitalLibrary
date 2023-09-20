@@ -1,0 +1,79 @@
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+class Book {
+    private String title;
+    private String author;
+    private int year;
+
+    public Book(String title, String author, int year) {
+        this.title = title;
+        this.author = author;
+        this.year = year;
+    }
+
+    @Override
+    public String toString() {
+        return "Title: " + title + ", Author: " + author + ", Year: " + year;
+    }
+}
+
+class DigitalLibrary {
+    private List<Book> library;
+
+    public DigitalLibrary() {
+        library = new ArrayList<>();
+    }
+
+    public void addBook(String title, String author, int year) {
+        Book book = new Book(title, author, year);
+        library.add(book);
+    }
+
+    public void listBooks() {
+        System.out.println("Books in the Library:");
+        for (Book book : library) {
+            System.out.println(book);
+        }
+    }
+
+    public static void main(String[] args) {
+        DigitalLibrary digitalLibrary = new DigitalLibrary();
+        Scanner scanner = new Scanner(System.in);
+
+        while (true) {
+            System.out.println("\nDigital Library Menu:");
+            System.out.println("1. Add a Book");
+            System.out.println("2. List All Books");
+            System.out.println("3. Quit");
+            System.out.print("Enter your choice: ");
+
+            int choice = scanner.nextInt();
+            scanner.nextLine(); // Consume newline
+
+            switch (choice) {
+                case 1:
+                    System.out.print("Enter book title: ");
+                    String title = scanner.nextLine();
+                    System.out.print("Enter author: ");
+                    String author = scanner.nextLine();
+                    System.out.print("Enter publication year: ");
+                    int year = scanner.nextInt();
+                    scanner.nextLine(); // Consume newline
+                    digitalLibrary.addBook(title, author, year);
+                    System.out.println("Book added successfully.");
+                    break;
+                case 2:
+                    digitalLibrary.listBooks();
+                    break;
+                case 3:
+                    System.out.println("Goodbye!");
+                    scanner.close();
+                    System.exit(0);
+                default:
+                    System.out.println("Invalid choice. Try again.");
+            }
+        }
+    }
+}
